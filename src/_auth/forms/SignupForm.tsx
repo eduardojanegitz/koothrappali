@@ -4,13 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 
+import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
@@ -18,12 +18,14 @@ import { SignupValidation } from "@/lib/validation";
 import Loader from "@/components/shared/Loader";
 import { Link } from "react-router-dom";
 import { createUserAccount } from "@/lib/appwrite/api";
+import { sign } from "crypto";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
 });
 
 const SignupForm = () => {
+  const { toast } = useToast();
   const isLoading = false;
 
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -39,7 +41,14 @@ const SignupForm = () => {
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
     const newUser = await createUserAccount(values);
 
-    console.log(newUser)
+    if (!newUser) {
+      return toast({
+        title:
+          "Cadastro de usuário não ocorreu conforme esperado. Por favor, tente novamente.",
+      });
+    }
+
+    // const session = await signInAccount()
   }
 
   return (
