@@ -10,7 +10,7 @@ const LeftSidebar = () => {
   const { mutate: signOut, isSuccess } = useSignOutAccount();
   const { pathname } = useLocation();
   const { user } = useUserContext();
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,6 +48,7 @@ const LeftSidebar = () => {
 
             return (
               <li
+                key={link.label}
                 className={`leftsidebar-link group ${
                   isActive && "bg-primary-500"
                 }`}
@@ -70,7 +71,7 @@ const LeftSidebar = () => {
           })}
         </ul>
       </div>
-      
+
       <Button
         variant="ghost"
         className="shad-button_ghost"
