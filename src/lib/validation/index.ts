@@ -15,3 +15,18 @@ export const SigninValidation = z.object({
     .string()
     .min(8, { message: "A senha precisa ter no mínimo oito caracteres" }),
 });
+
+export const PostValidation = z.object({
+  caption: z
+    .string()
+    .min(5, { message: "A legenda precisa ter no mínimo 5 caracteres" })
+    .max(2200, {
+      message: "A legenda não pode ter mais do que 2200 caracteres",
+    }),
+  file: z.custom<File[]>(),
+  location: z
+    .string()
+    .min(2, { message: "A localização precisa ter no mínimo 2 caracteres" })
+    .max(100, { message: "A localização não pode ter mais de 100 caracteres" }),
+  tags: z.string(),
+});
