@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useUserContext } from "@/context/AuthContext";
+// import { useUserContext } from "@/context/AuthContext";
 import {
   useDeleteSavedPost,
   useGetCurrentUser,
@@ -22,8 +22,8 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
   const [isSaved, setIsSaved] = useState(false);
 
   const { mutate: likePost } = useLikePost();
-  const { mutate: savePost, isPending: isSavingPost } = useSavePost();
-  const { mutate: deleteSavedPost, isPending: isDeletingSave } =
+  const { mutate: savePost, isLoading: isSavingPost } = useSavePost();
+  const { mutate: deleteSavedPost, isLoading: isDeletingSave } =
     useDeleteSavedPost();
 
   const { data: currentUser } = useGetCurrentUser();

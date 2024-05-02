@@ -24,13 +24,15 @@ import { useUserContext } from "@/context/AuthContext";
 
 const SignupForm = () => {
   const { toast } = useToast();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser, isLoading: isUserLoading} = 
+  useUserContext();
+
   const navigate = useNavigate();
 
-  const { mutateAsync: createUserAccount, isPending: isCreatingAccount } =
+  const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } =
     useCreateUserAccount();
 
-  const { mutateAsync: signInAccount, isPending: isSiginIn } =
+  const { mutateAsync: signInAccount, isLoading: isSigningInUser } =
     useSignInAccount();
 
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -146,7 +148,7 @@ const SignupForm = () => {
             )}
           />
           <Button className="shad-button_primary" type="submit">
-            {isCreatingAccount ? (
+            {isCreatingAccount  || isSigningInUser || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Carregando...
               </div>
